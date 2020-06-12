@@ -1,5 +1,4 @@
 # pycasa
-======
 Pycasa
 ======
 
@@ -11,7 +10,6 @@ mouse operation can significantly slowdown process.
 Typical usage often looks like this::
 
     todo...
-
 
 Paragraphs are separated by blank lines. *Italics*, **bold**,
 and ``monospace`` look like this.
@@ -39,6 +37,8 @@ Numbered lists look like you'd expect:
 Urls are http://like.this and links can be
 written `like this <http://www.example.com/foo/bar>`_.
 
+How to initialize your project (venv and fbs)
+=========
 python3.5 -m venv venv
 .\venv\Scripts\activate
 pip install PyQt5
