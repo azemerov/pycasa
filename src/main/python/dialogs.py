@@ -47,12 +47,14 @@ class MyDialog(QDialog):
         self.exec_()
         return self.result
 
-def makeEdit(parent, layout, caption, value, row):
+def makeEdit(parent, layout, caption, value, row, editedHandler=None):
     label = QLabel(caption)
     layout.addWidget(label, row, 0)
     result = QLineEdit(parent)
     result.setText(str(value))
     layout.addWidget(result, row, 1)
+    if editedHandler:
+        result.textEdited.connect(editedHandler)
     return result
 
 def makeButton(parent, layout, caption, clicked, row, col):
@@ -66,13 +68,13 @@ def makeOkCancelButtons(parent, layout, clicked1, clicked2, row):
            makeButton(parent, layout, '&Cancel', clicked2, row, 1)
 
 class BrightnessConstrastFrame(QWidget):
-    def __init__(self, parent, brightness, contrast, onclose):
+    def __init__(self, parent, brightness, contrast, onclose, onbrightness, oncontrast):
         super(BrightnessConstrastFrame, self).__init__(parent)
         layout = QGridLayout()
         # layout.setColumnStretch(1, 4)
         # layout.setColumnStretch(2, 4)
-        self.brightnessEdt = makeEdit(self, layout, 'Brightness:', brightness, 0)
-        self.contrastEdt = makeEdit(self, layout, 'Contrast:', contrast, 1)
+        self.brightnessEdt = makeEdit(self, layout, 'Brightness:', brightness, 0, onbrightness)
+        self.contrastEdt = makeEdit(self, layout, 'Contrast:', contrast, 1, oncontrast)
         makeOkCancelButtons(self, layout, self.onOkBtn, self.onCancelBtn, 2)
         self.setLayout(layout)
         self.onclose = onclose
