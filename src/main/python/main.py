@@ -222,7 +222,7 @@ def test1():
     print('test1')
 
 def doExit():
-    appctxt.app.quit()
+    app.quit()
 
 FILE_MENU = [
     ('&File', (
@@ -339,9 +339,9 @@ class MyWindow(QMainWindow): # QWidget
         frstIdx = None
         for i in range(4):
             item = QStandardItem("Pictures %d" % i)
-            item.setData('C:/Users/azemero/Pictures')
+            item.setData('/mnt/chromeos/MyFiles/Downloads/Pictures/') #?'C:/Users/azemero/Pictures')
             #item.setIcon(QIcon(os.path.abspath(os.path.join(os.path.dirname(__file__),'..','icons','base','24.png'))))
-            item.setIcon(QIcon(appctxt.get_resource('folder_png8773.ico')))
+            #?item.setIcon(QIcon(appctxt.get_resource('folder_png8773.ico')))
             parentItem.appendRow(item)
             if not frstIdx:
                 frstIdx = item.index()
@@ -712,11 +712,22 @@ class ViewWindow(QMainWindow): # QWidget):
             self.ctrl.setParent(None)
             self.ctrl = None
 
-
-if __name__ == '__main__':
+def main():
+    global app
     appctxt = ApplicationContext()       # 1. Instantiate ApplicationContext
-    appctxt.app.setStyle('Fusion')
+    app = appcnx.app
+    app.setStyle('Fusion')
     #appctxt.app.setStyleSheet("QPushButton { margin: 10ex; }")
     MyWindow().show()
     exit_code = appctxt.app.exec_()      # 2. Invoke appctxt.app.exec_()
     sys.exit(exit_code)
+
+def main1():
+    global app
+    app = QApplication([])       # 1. Instantiate QApplication
+    MyWindow().show()
+    exit_code = app.exec_()      # 2. Invoke app.exec_()
+    sys.exit(exit_code)
+
+if __name__ == '__main__':
+    main1()
